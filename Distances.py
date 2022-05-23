@@ -32,37 +32,67 @@ def distanceBetween (address_one, address_two):
     return value
 
 address_sequence = []
+#distance = 0
 def minDistanceFrom (fromAddress, truck_addresses):
 
- # address_sequence = []
+  distance = 0
+#  address_sequence = []
   while len(truck_addresses) > 1:
       min_distance = 99999
       min_address = ' '
-      distance = 0
+     # distance = 0
+     # address_sequence = []
       for address2 in truck_addresses:
           if fromAddress == address2 :
               continue
 
           distance = distanceBetween(fromAddress, address2)
-          print (distance)
+          #print (distance)
 
           if min_distance > distance:
               min_distance = distance
               min_address = address2
 
+      distance += min_distance
+      print (distance)
       address_sequence.append([fromAddress, min_address, min_distance])
       truck_addresses.remove (fromAddress)
-      distance += min_distance
+
+
       minDistanceFrom(min_address, truck_addresses)
 
-  print ('total sequence distance')
+ # print ('total sequence distance')
 
-  total_distance = 0
-  for i in address_sequence:
-      total_distance += i[2]
-
-  print (total_distance)
+ #total_distance = 0
+  #for i in range (len(address_sequence)):
+   #    total_distance +=  address_sequence[i[2]]
+  print('distance inside')
+  print(distance)
   return address_sequence
+
+
+
+def routeTruck (address_sequence, truck_packages):
+    truck_route = []
+    for address1 in address_sequence:
+       # if address_sequence.index(address1) == 0:
+          #  continue
+        for i  in range (len(truck_packages)):
+           # index = truck_packages.index(address2)
+            if getattr(truck_packages[i], 'address') == address1[1]:
+              truck_route.append(truck_packages[i])
+    return truck_route
+
+def handleSpecialCases (truck_route):
+    updated_route = truck_route
+  #  updated_route.append('HUB')
+
+    for i in range (len(truck_route)):
+        if getattr(truck_route[i], 'deadline') == '9:00 AM':
+            updated_route.insert(1, truck_route.package.pop[i])
+            #updated_route.pop(truck_route.package[i])
+
+    return updated_route
 
   # i = 0
   #  for i in range (len (truck_addresses)):

@@ -39,7 +39,8 @@ def loadPackageData (filename, myHashTable):
 
          #   print ("inside for")
 
-
+            if id == 9:
+                address = '410 S State St'
 
                 # package object
             newPackage = Package (id, address, deadline, city, state, zip, weight, note, status)
