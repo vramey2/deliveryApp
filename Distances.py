@@ -83,37 +83,4 @@ def routeTruck (address_sequence, truck_packages):
               truck_route.append(truck_packages[i])
     return truck_route
 
-def handleSpecialCases (truck_route):
-    updated_route = truck_route
-  #  updated_route.append('HUB')
 
-    for i in range (len(truck_route)):
-        if getattr(truck_route[i], 'deadline') == '9:00 AM':
-            updated_route.insert(1, truck_route.package.pop[i])
-            #updated_route.pop(truck_route.package[i])
-
-    return updated_route
-
-  # i = 0
-  #  for i in range (len (truck_addresses)):
-  #     for j in range ((i+1, (len(truck_addresses)-1)):
-  #       value = distanceBetween(truck_addresses[i], truck_addresses[j]))
-  #
-  #
-  #           if (value <= min):
-  #                   min = value
-  #                   truck_address_sequence.append (truck_addresses[j])
-  #                   print ('appending address')
-  #                   print (truck_addresses[j])
-  #   return truck_address_sequence
-
-
-    # for i in truck_addresses:
-    #     value = i
-    #     if distanceBetween(fromAddress, value) < min:
-    #         min = distanceBetween(fromAddress, value)
-    #         fromAddress = value
-    #         truck_address_sequence.append(value)
-    #         print ("appending address")
-    #         print (value)
-    # return truck_address_sequence

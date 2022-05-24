@@ -34,3 +34,12 @@ print (Distances.distanceBetween('195 W Oakland Ave', 'HUB'))
 
 print ('truck')
 #print("Truck: {}".format.Delivery.second_truck)
+
+print ("Enter time in HH:MM:SS format: ")
+input_time = input
+(hour, minute, second) = input_time().split(":")
+current_decimal_time = int(hour)*3600 + int(minute)*60 + int (second)
+decimal_time = int(hour) + int(minute)/60 + int(second) / 3600
+print ('current_decimal_time',  decimal_time)
+input_package = int(input ("Enter package ID: "))
+Delivery.lookupPackage(input_package, decimal_time)

@@ -25,6 +25,15 @@ class MyHashTable:
         bucket_list.append(key_value)
         return True
 
+    def update(self, key, item):
+         bucket = hash(key) % len(self.table)
+         if self.table [bucket] != None:
+                for kv in self.table [bucket]:
+                    if kv [0] == key:
+                        kv[1] = item
+                        return True
+
+
     # Searches for an item with matching key in the hash table.
     # Returns the item if found, or None if not found.
     def search(self, key):
