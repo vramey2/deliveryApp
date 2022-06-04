@@ -33,6 +33,14 @@ class MyHashTable:
                         kv[1] = item
                         return True
 
+    def get_item(self, key):
+        bucket =  hash(key) % len(self.table)
+        if self.table [bucket] != None:
+            for kv in self.table[bucket]:
+                if kv [0] == key:
+                    return kv [1]
+
+
 
     # Searches for an item with matching key in the hash table.
     # Returns the item if found, or None if not found.
@@ -60,6 +68,8 @@ class MyHashTable:
             # print (key_value)
             if kv[0] == key:
                 bucket_list.remove([kv[0], kv[1]])
+
+
 
     def  print (self):  # overwite print(Movie) otherwise it will print object reference
          for item in self.table:

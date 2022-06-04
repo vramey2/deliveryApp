@@ -43,3 +43,15 @@ decimal_time = int(hour) + int(minute)/60 + int(second) / 3600
 print ('current_decimal_time',  decimal_time)
 input_package = int(input ("Enter package ID: "))
 Delivery.lookupPackage(input_package, decimal_time)
+
+
+print ('Enter time to look up all packages: ')
+inputed_time = input
+(hour, minute, second) = inputed_time().split(":")
+current_d_time = int(hour)*3600 + int(minute)*60 + int (second)
+d_time = int(hour) + int(minute)/60 + int(second) / 3600
+#inputed_time = input
+Delivery.getAll(d_time)
+
+
+#user_selection = input ('Please chose the following options: \n'')

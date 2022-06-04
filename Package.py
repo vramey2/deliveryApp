@@ -6,7 +6,7 @@ second_truck = []
 third_truck = []
 
 class Package:
-    def __init__(self, id, address, deadline, city, state, zip, weight,  note, status):
+    def __init__(self, id, address, deadline, city, state, zip, weight,  note, status, delivery, start_time):
         self.id = id
         self.address = address
         self.deadline = deadline
@@ -16,9 +16,11 @@ class Package:
         self.weight = weight
         self.note = note
         self.status = status
+        self.delivery = delivery
+        self.start_time = start_time
 
     def __str__(self):  # overwite print(Movie) otherwise it will print object reference
-        return "%s, %s, %s, %s, %s, %s, %s, %s, %s" % (self.id, self.deadline, self.address, self.city, self.state, self.zip, self.weight, self.note, self.status)
+        return "%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s" % (self.id, self.deadline, self.address, self.city, self.state, self.zip, self.weight, self.note, self.status, self.delivery, self.start_time)
 
 def loadPackageData (filename, myHashTable):
 
@@ -36,6 +38,8 @@ def loadPackageData (filename, myHashTable):
             weight = package [6]
             note = package [7]
             status = "In the hub"
+            delivery = " "
+            start_time = " "
 
          #   print ("inside for")
 
@@ -43,12 +47,15 @@ def loadPackageData (filename, myHashTable):
                 address = '410 S State St'
 
                 # package object
-            newPackage = Package (id, address, deadline, city, state, zip, weight, note, status)
+            newPackage = Package (id, address, deadline, city, state, zip, weight, note, status, delivery, start_time)
             print ("New package" , newPackage)
             #insert into hash
 
 
             myHash.insert(id, newPackage)
+
+def get_myHash():
+    return myHash
 
 
 
