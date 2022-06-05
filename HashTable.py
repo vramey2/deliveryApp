@@ -3,9 +3,9 @@ class MyHashTable:
     # Assigns all buckets with an empty list.
     def __init__(self, initial_capacity=40):
         # initialize the hash table with empty bucket list entries.
-        self.table = []
-        for i in range(initial_capacity):
-            self.table.append([])
+        self.table =[ [] for i in range (initial_capacity)]
+        # for i in range(initial_capacity):
+        #     self.table.append([])
 
     # Inserts a new item into the hash table.
     def insert(self, key, item):  # does both insert and update

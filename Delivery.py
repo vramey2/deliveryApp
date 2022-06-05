@@ -19,11 +19,7 @@ class Truck:
 first_start = 8.00
 second_start = 9.10
 third_start = 11.00
-    #for value in range (1, len(Package.myHash))+1):
-      # if Package.package ["note"] == 'on truck 2':
-       #     second_truck.append()
-#for i in range (len(Package.myHash.table)+1):
-    #if Package.myHash [7] == "Can only be on truck 2":
+
 first_truck.append(Package.myHash.search(1))
 first_truck.append(Package.myHash.search(4))
 first_truck.append(Package.myHash.search(13))
@@ -36,22 +32,7 @@ first_truck.append(Package.myHash.search(21))
 first_truck.append(Package.myHash.search(34))
 first_truck.append(Package.myHash.search(39))
 first_truck.append(Package.myHash.search(40))
-# for package in first_truck:
-#     package.status = 'on truck 1'
-#     package.start_time = first_start
 
-first_truck_addresses = []
-for i  in range (len(first_truck)):
-   first_truck_addresses.append(getattr(first_truck[i], 'address'))
-
-#first_truck_addresses.insert (0, 'HUB')
-print ("on first truck")
-print (first_truck_addresses)
-
-first_addresses_noduplicates = list (set(first_truck_addresses))
-first_addresses_noduplicates.insert(0, 'HUB')
-print ("first without dupblicates")
-print (first_addresses_noduplicates)
 second_truck.append(Package.myHash.search(3))
 second_truck.append(Package.myHash.search(5))
 second_truck.append(Package.myHash.search(6))
@@ -68,25 +49,7 @@ second_truck.append(Package.myHash.search(32))
 second_truck.append(Package.myHash.search(36))
 second_truck.append(Package.myHash.search(37))
 second_truck.append(Package.myHash.search(38))
-for package in second_truck:
-    package.status = 'on truck 2'
-    package.start_time = second_start
-print('on second truck')
-second_truck_addresses = []
-for i  in range (len(second_truck)):
-    second_truck_addresses.append(getattr(second_truck[i], 'address'))
 
-
-
-   # print (getattr(second_truck[i], 'address'))
-
-#second_truck_addresses.insert(0, 'HUB')
-print (second_truck_addresses)
-  #  print ('truck:')
-second_addresses_noduplicates = list (set(second_truck_addresses))
-second_addresses_noduplicates.insert (0, 'HUB')
-print ("second without dupblicates")
-print (second_addresses_noduplicates)
 
 third_truck.append(Package.myHash.search(2))
 third_truck.append(Package.myHash.search(10))
@@ -100,7 +63,39 @@ third_truck.append(Package.myHash.search(27))
 third_truck.append(Package.myHash.search(33))
 third_truck.append(Package.myHash.search(35))
 third_truck.append(Package.myHash.search(28))
-#third_truck_index = [2, 10, 11, 12, 17, 22, 23, 24, 27, 33, 35, 28]
+
+first_truck_addresses = []
+for i  in range (len(first_truck)):
+   first_truck_addresses.append(getattr(first_truck[i], 'address'))
+
+# #first_truck_addresses.insert (0, 'HUB')
+# print ("on first truck")
+# print (first_truck_addresses)
+
+first_addresses_noduplicates = list (set(first_truck_addresses))
+first_addresses_noduplicates.insert(0, 'HUB')
+# print ("first without dupblicates")
+# print (first_addresses_noduplicates)
+
+for package in second_truck:
+    package.status = 'on truck 2'
+    package.start_time = second_start
+#print('on second truck')
+second_truck_addresses = []
+for i  in range (len(second_truck)):
+    second_truck_addresses.append(getattr(second_truck[i], 'address'))
+
+
+
+#print (second_truck_addresses)
+
+second_addresses_noduplicates = list (set(second_truck_addresses))
+second_addresses_noduplicates.insert (0, 'HUB')
+# print ("second without dupblicates")
+print (second_addresses_noduplicates)
+
+
+
 for package in third_truck:
     package.status = 'on truck 3'
     package.start_time = third_start
@@ -116,16 +111,16 @@ third_addresses_noduplicates = list (set(third_truck_addresses))
 third_addresses_noduplicates.insert (0, 'HUB')
 #print (third_truck_addresses)
 
-print ('address sequence')
-print (Distances.minDistanceFrom( first_addresses_noduplicates[0], first_addresses_noduplicates))
+# print ('address sequence')
+# print (Distances.minDistanceFrom( first_addresses_noduplicates[0], first_addresses_noduplicates))
 first_addresse_sequence = Distances.minDistanceFrom(first_addresses_noduplicates [0], first_addresses_noduplicates)
 #first_addresse_sequence.append('HUB')
 
-print ('first truck route')
+#print ('first truck route')
 first_sequence = Distances.minDistanceFrom(first_addresse_sequence[0], first_addresses_noduplicates)
 first_route = Distances.routeTruck(first_sequence, first_truck)
-for package in first_route:
-    print (package)
+# for package in first_route:
+#     print (package)
 
 first_index_list = []
 for i in range (len(first_route)):
@@ -153,12 +148,12 @@ for i in range (len(first_index_list)):
     index = first_index_list[i]
     Package.myHash.search(index).delivery = first_time[i]
    # package.delivery = first_time [first_index_list]
-print ('first times', first_time)
+#print ('first times', first_time)
 def getfirst_distance():
     return first_distance
-
-print ('first distances', first_distance)
-print ('first indexes', first_index_list)
+#
+# print ('first distances', first_distance)
+# print ('first indexes', first_index_list)
 
 
 
@@ -170,15 +165,7 @@ print ('first indexes', first_index_list)
 #print  (vars(first_route))
 #print (Distances.routeTruck(first_sequence, first_truck))
 print ('first sequence', first_sequence)
-# first_distances = []
-# for i in range (len(first_route)-1):
-#     first_distances.append(Distances.distances(getattr(Package.myHash.search(first_route[i], 'address')), getattr(Package.myHash.search(first_route[i+1], 'address'))))
-# first_distances.append(Distances.distanceBetween(first_sequence[-1] [1], 'HUB'))
-# print ('first distances list')
-# print (first_distances)
-# second truck route
-#print ('second sequence')
-#print (Distances.minDistanceFrom(second_addresses_noduplicates[0], second_addresses_noduplicates))
+
 second_addresses_sequence = Distances.minDistanceFrom(second_addresses_noduplicates[0], second_addresses_noduplicates)
 
 print ('second truck route')
@@ -187,20 +174,6 @@ second_route = Distances.routeTruck(second_sequence, second_truck)
 #second_route.append('HUB')
 for package in second_route:
     print (package)
-
-# irst_index_list = []
-# for i in range (len(first_route)):
-#     first_index_list.append(first_route [i].id)
-# first_time = []
-# first_distance = []
-# j = 0
-# for i in range (len(first_route)-1):
-#     distance = Distances.distanceBetween(first_route[i].address, first_route[i+1].address)
-#     first_distance.append(distance)
-#     first_time.append (distance/18)
-#
-# first_distance.append(Distances.distanceBetween(getattr(first_route[-1], 'address'), 'HUB'))
-# first_time.append ((Distances.distanceBetween(getattr(first_route[-1], 'address'), 'HUB')/18))
 
 #second_addresses_sequence.append([getattr(second_route[-1], 'address'), 'HUB', Distances.distanceBetween(getattr(second_route[-1], 'address'), 'HUB')])
 print ('second sequence')
@@ -260,12 +233,19 @@ for package in third_route:
     print (package)
 
 #add returning to hub to the totals
-print ("distance total")
-last_one = Distances.distanceBetween(getattr(first_route[-1], 'address'), 'HUB') + Distances.distanceBetween(
-    getattr(second_route[-1], 'address'), 'HUB') + Distances.distanceBetween(getattr(third_route[-1], 'address'), 'HUB')
-distance =  getDistance(third_addresses_sequence) + last_one
-print (round (distance, 2))
+# print ("distance total")
+# last_one = Distances.distanceBetween(getattr(first_route[-1], 'address'), 'HUB') + Distances.distanceBetween(
+#     getattr(second_route[-1], 'address'), 'HUB') + Distances.distanceBetween(getattr(third_route[-1], 'address'), 'HUB')
+# distance =  getDistance(third_addresses_sequence) + last_one
+# print (round (distance, 2))
 
+def total_distance ():
+    last_one = Distances.distanceBetween(getattr(first_route[-1], 'address'), 'HUB') + Distances.distanceBetween(
+        getattr(second_route[-1], 'address'), 'HUB') + Distances.distanceBetween(getattr(third_route[-1], 'address'),
+                                                                                 'HUB')
+    distance = getDistance(third_addresses_sequence) + last_one
+
+    print (round (distance, 2))
 third_index_list = []
 for i in range (len(third_route)):
     third_index_list.append(third_route [i].id)
