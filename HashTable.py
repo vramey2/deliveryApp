@@ -10,8 +10,8 @@ class MyHashTable:
     # Inserts a new item into the hash table.
     def insert(self, key, item):  # does both insert and update
         # get the bucket list where this item will go.
-        bucket = hash(key) % len(self.table)
-        bucket_list = self.table[bucket]
+        #bucket = hash(key) % len(self.table)
+        bucket_list = self.table[hash(key) % len(self.table)]
 
         # update key if it is already in the bucket
         for kv in bucket_list:
@@ -26,17 +26,17 @@ class MyHashTable:
         return True
 
     def update(self, key, item):
-         bucket = hash(key) % len(self.table)
-         if self.table [bucket] != None:
-                for kv in self.table [bucket]:
+        # bucket = hash(key) % len(self.table)
+         if self.table [hash(key) % len(self.table)] != None:
+                for kv in self.table [hash(key) % len(self.table)]:
                     if kv [0] == key:
                         kv[1] = item
                         return True
 
     def get_item(self, key):
-        bucket =  hash(key) % len(self.table)
-        if self.table [bucket] != None:
-            for kv in self.table[bucket]:
+      #  bucket =  hash(key) % len(self.table)
+        if self.table [hash(key) % len(self.table)] != None:
+            for kv in self.table[hash(key) % len(self.table)]:
                 if kv [0] == key:
                     return kv [1]
 
@@ -46,12 +46,12 @@ class MyHashTable:
     # Returns the item if found, or None if not found.
     def search(self, key):
         # get the bucket list where this key would be.
-        bucket = hash(key) % len(self.table)
-        bucket_list = self.table[bucket]
+       # bucket = hash(key) % len(self.table)
+        #bucket_list = self.table[hash(key) % len(self.table)]
         #print(bucket_list)
 
         # search for the key in the bucket list
-        for kv in bucket_list:
+        for kv in self.table[hash(key) % len(self.table)]:
             # print (key_value)
             if kv[0] == key:
                 return kv[1]  # value
@@ -60,14 +60,14 @@ class MyHashTable:
     # Removes an item with matching key from the hash table.
     def remove(self, key):
         # get the bucket list where this item will be removed from.
-        bucket = hash(key) % len(self.table)
-        bucket_list = self.table[bucket]
+       # bucket = hash(key) % len(self.table)
+       # bucket_list = self.table[hash(key) % len(self.table)]
 
         # remove the item from the bucket list if it is present.
-        for kv in bucket_list:
+        for kv in self.table[hash(key) % len(self.table)]:
             # print (key_value)
             if kv[0] == key:
-                bucket_list.remove([kv[0], kv[1]])
+                self.table[hash(key) % len(self.table)].remove([kv[0], kv[1]])
 
 
 

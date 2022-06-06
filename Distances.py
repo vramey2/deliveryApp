@@ -3,13 +3,6 @@ import math
 
 with open("Distances.csv") as distancedata:
     distances = list(csv.reader(distancedata, delimiter=','))
-   # distanceList = list (distanceData)
-   #  distances = []
-   #  for row in distanceData:
-   #     distances.append(row)
-
-# print ('here are distances:')
-# print (distances)
 
 
 with open ("WGUPS Distance Table Rev.csv") as addressdata:
@@ -32,7 +25,7 @@ address_sequence = []
 def minDistanceFrom (fromAddress, truck_addresses):
 
   distance = 0
-#  address_sequence = []
+
   while len(truck_addresses) > 1:
       min_distance = 99999
       min_address = ' '
@@ -49,7 +42,6 @@ def minDistanceFrom (fromAddress, truck_addresses):
               min_address = address2
 
       distance += min_distance
-     # print (distance)
       address_sequence.append([fromAddress, min_address, min_distance])
       truck_addresses.remove (fromAddress)
 

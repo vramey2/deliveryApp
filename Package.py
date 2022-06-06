@@ -48,7 +48,7 @@ def loadPackageData (filename, myHashTable):
 
                 # package object
             newPackage = Package (id, address, deadline, city, state, zip, weight, note, status, delivery, start_time)
-            print ("New package" , newPackage)
+            #print ("New package" , newPackage)
             #insert into hash
 
 
@@ -64,9 +64,9 @@ def get_myHash():
 myHash = HashTable.MyHashTable()
 loadPackageData('packagedata.csv', myHash)
 
-myHash.print()
-def getPackageData():
-     for i in range (len(myHash.table)+1):
-         print ("Package: {}".format(myHash.search(i+1)))
-
-getPackageData()
+# #myHash.print()
+# def getPackageData():
+#      for i in range (len(myHash.table)+1):
+#          print ("Package: {}".format(myHash.search(i+1)))
+#
+# getPackageData()

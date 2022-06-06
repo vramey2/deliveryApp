@@ -14,7 +14,8 @@ def userGui(user_selection):
         decimal_time = int(hour) + int(minute) / 60 + int(second) / 3600
         print('current_decimal_time', decimal_time)
         input_package = int(input("Enter package ID: "))
-        Delivery.lookupPackage(input_package, decimal_time)
+        Delivery.getById(input_package, decimal_time)
+        #Delivery.lookupPackage(input_package, decimal_time)
 
 
     elif user_selection == '2':
