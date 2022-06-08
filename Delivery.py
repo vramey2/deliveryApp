@@ -1,25 +1,19 @@
 import Distances
-import HashTable
 import Package
 
+# Create lists for the three trucks
 first_truck = []
 second_truck = []
 third_truck = []
 
 
-class Truck:
-
-    def __init_self__(self, index, loaded_packages, start_time, maximum_capacity):
-         self.index = index
-         self.loaded_packages = []
-         self.start_time = start_time
-         self.maximum_capacity = maximum_capacity
-
-
+#  Assign time for the trucks to leave the hub
 first_start = 8.00
 second_start = 9.10
 third_start = 11.00
 
+
+#Load first truck
 first_truck.append(Package.myHash.search(1))
 first_truck.append(Package.myHash.search(4))
 first_truck.append(Package.myHash.search(13))
@@ -33,6 +27,7 @@ first_truck.append(Package.myHash.search(34))
 first_truck.append(Package.myHash.search(39))
 first_truck.append(Package.myHash.search(40))
 
+#Load second truck
 second_truck.append(Package.myHash.search(3))
 second_truck.append(Package.myHash.search(5))
 second_truck.append(Package.myHash.search(6))
@@ -50,7 +45,7 @@ second_truck.append(Package.myHash.search(36))
 second_truck.append(Package.myHash.search(37))
 second_truck.append(Package.myHash.search(38))
 
-
+#Load third truck
 third_truck.append(Package.myHash.search(2))
 third_truck.append(Package.myHash.search(10))
 third_truck.append(Package.myHash.search(11))
@@ -64,67 +59,63 @@ third_truck.append(Package.myHash.search(33))
 third_truck.append(Package.myHash.search(35))
 third_truck.append(Package.myHash.search(28))
 
+#Set statis pf 1st tricl [aclages as on truck 1
+for package in first_truck:
+    package.status = 'on truck 1'
+    package.start_time = first_start
+
+
+#Create and populate list with addresses of the first truck
 first_truck_addresses = []
 for i  in range (len(first_truck)):
    first_truck_addresses.append(getattr(first_truck[i], 'address'))
 
-# #first_truck_addresses.insert (0, 'HUB')
-# print ("on first truck")
-# print (first_truck_addresses)
 
+# Create list with addresses of the first truck without any duplicates
 first_addresses_noduplicates = list (set(first_truck_addresses))
 first_addresses_noduplicates.insert(0, 'HUB')
-# print ("first without dupblicates")
-# print (first_addresses_noduplicates)
 
+# Set status of 2nd truck packages as on truck 2
 for package in second_truck:
     package.status = 'on truck 2'
     package.start_time = second_start
-#print('on second truck')
+
+
+#Create and populate list with addresses of second truck
 second_truck_addresses = []
 for i  in range (len(second_truck)):
     second_truck_addresses.append(getattr(second_truck[i], 'address'))
 
 
-
-#print (second_truck_addresses)
-
+ #Create list with addresses of the second truck without any duplicates
 second_addresses_noduplicates = list (set(second_truck_addresses))
 second_addresses_noduplicates.insert (0, 'HUB')
-# print ("second without dupblicates")
-print (second_addresses_noduplicates)
 
-
-
+#Set status of 3rd truck packages as on truck 3
 for package in third_truck:
     package.status = 'on truck 3'
     package.start_time = third_start
-#print ('third truck is ')
-#print (third_truck)
+
+#Create and populate list with addresses of third truck
 third_truck_addresses = []
 for i  in range (len(third_truck)):
    third_truck_addresses.append(getattr(third_truck[i], 'address'))
 
-#print ("on third truck")
-#third_truck_addresses.insert(0, 'HUB')
+#Create list with addresses of the third truck without any duplicates
 third_addresses_noduplicates = list (set(third_truck_addresses))
 third_addresses_noduplicates.insert (0, 'HUB')
-#print (third_truck_addresses)
 
-# print ('address sequence')
-# print (Distances.minDistanceFrom( first_addresses_noduplicates[0], first_addresses_noduplicates))
+#Sequence of first truck addresses to route
 first_addresse_sequence = Distances.minDistanceFrom(first_addresses_noduplicates [0], first_addresses_noduplicates)
-#first_addresse_sequence.append('HUB')
-
-#print ('first truck route')
 first_sequence = Distances.minDistanceFrom(first_addresse_sequence[0], first_addresses_noduplicates)
 first_route = Distances.routeTruck(first_sequence, first_truck)
-# for package in first_route:
-#     print (package)
 
+#List of indices for the first truck
 first_index_list = []
 for i in range (len(first_route)):
     first_index_list.append(first_route [i].id)
+
+#List of time and distance for the first truck
 first_time = []
 first_distance = []
 j = 0
@@ -133,51 +124,33 @@ for i in range (len(first_route)-1):
     distance = Distances.distanceBetween(first_route[i].address, first_route[i+1].address)
     counter += distance
     first_distance.append(counter)
-   # delivery_time = first_start + counter/18
     first_time.append (first_start + counter/18)
-   # package.delivery = delivery_time
-for package in first_truck:
-    package.status = 'on truck 1'
-    package.start_time = first_start
-    #index = getattr(package, 'id')
-    #package.delivery = first_time [index]
+
 first_distance.insert(0, Distances.distanceBetween ('HUB', (getattr(first_route[0], 'address'))))
 first_distance.append(Distances.distanceBetween(getattr(first_route[-1], 'address'), 'HUB'))
 first_time.append (first_start + (Distances.distanceBetween(getattr(first_route[-1], 'address'), 'HUB')/18))
+#insert delivery times to hash table for first truck
 for i in range (len(first_index_list)):
     index = first_index_list[i]
     Package.myHash.search(index).delivery = first_time[i]
-   # package.delivery = first_time [first_index_list]
-#print ('first times', first_time)
-def getfirst_distance():
-    return first_distance
-#
-# print ('first distances', first_distance)
-# print ('first indexes', first_index_list)
 
+# Returns distance of the first truck
+# def getfirst_distance():
+#     return first_distance
 
-
-#print  (vars(first_route))
-#print (Distances.routeTruck(first_sequence, first_truck))
-#print ('first sequence', first_sequence)
-
+#Sequence of addresses for the second truck
 second_addresses_sequence = Distances.minDistanceFrom(second_addresses_noduplicates[0], second_addresses_noduplicates)
 
-#2print ('second truck route')
+#Second truck route
 second_sequence = Distances.minDistanceFrom(second_addresses_sequence[0], second_addresses_noduplicates)
 second_route = Distances.routeTruck(second_sequence, second_truck)
-#second_route.append('HUB')
-# for package in second_route:
-#     print (package)
 
-#second_addresses_sequence.append([getattr(second_route[-1], 'address'), 'HUB', Distances.distanceBetween(getattr(second_route[-1], 'address'), 'HUB')])
-# print ('second sequence')
-# print (second_addresses_sequence)
-#print (second_addresses_sequence[1][2])
+#List of indices for second truck
 second_index_list = []
 for i in range (len(second_route)):
     second_index_list.append(second_route [i].id)
 
+#Time and distance for second truck
 second_time = []
 second_distance = []
 counter = Distances.distanceBetween ('HUB', (getattr(second_route[0], 'address')))
@@ -224,15 +197,7 @@ third_addresses_sequence = Distances.minDistanceFrom(third_addresses_noduplicate
 #print ('third truck route')
 third_sequence = Distances.minDistanceFrom(third_addresses_sequence[0], third_addresses_noduplicates)
 third_route = Distances.routeTruck(third_sequence, third_truck)
-# for package in third_route:
-#     print (package)
 
-#add returning to hub to the totals
-# print ("distance total")
-# last_one = Distances.distanceBetween(getattr(first_route[-1], 'address'), 'HUB') + Distances.distanceBetween(
-#     getattr(second_route[-1], 'address'), 'HUB') + Distances.distanceBetween(getattr(third_route[-1], 'address'), 'HUB')
-# distance =  getDistance(third_addresses_sequence) + last_one
-# print (round (distance, 2))
 
 def total_distance ():
     last_one = Distances.distanceBetween(getattr(first_route[-1], 'address'), 'HUB') + Distances.distanceBetween(
@@ -240,7 +205,7 @@ def total_distance ():
                                                                                  'HUB')
     distance = getDistance(third_addresses_sequence) + last_one
 
-#    print ('Total distance is: :', round (distance, 2))
+    print ('Total distance is: :', round (distance, 2))
 third_index_list = []
 for i in range (len(third_route)):
     third_index_list.append(third_route [i].id)
@@ -268,189 +233,6 @@ for i in range (len(third_index_list)):
     index = third_index_list[i]
     Package.myHash.search(index).delivery = third_time[i]
 
-def lookupPackage (packageID, current_time):
-    if packageID in first_index_list:
-        number = first_index_list.index(packageID)
-        distance = first_distance[number]
-        # for i in range (first_index_list.index(packageID)):
-        #     distance += first_distance[i]
-        #     print ("distance inside lookup", distance)
-        time = distance/18
-        start_time = 8.00
-        #delta = current_time - start_time
-        delivery_time = start_time + time
-        formatted_delivery_hours = int(delivery_time)
-        formatted_minutes = (time * 60) % 60
-        formatted_seconds = (time * 3600 ) % 60
-        formatted_string = "%d:%02d:%02d" % (formatted_delivery_hours, formatted_minutes, formatted_seconds)
-
-        if current_time == start_time or current_time < start_time:
-             #  print ('in the hub')
-               first_route [number].status = 'in the hub'
-              # print(first_route[number])
-               print('Package ID: ', first_route[number].id)
-               print('Delivery address: ', first_route[number].address)
-               print('Delivery deadline: ', first_route[number].deadline)
-               print('Delivery city: ',first_route[number].city)
-               print('Delivery zip code: ', first_route[number].zip)
-               print('Package weight: ', first_route[number].weight)
-               print('Delivery status: in the hub. To be delivered: ', formatted_string)
-        elif current_time > delivery_time:
-           # print ('status delivered')
-            first_route[number].status = 'delivered at ',  formatted_string, distance
-            #print(first_route[number])
-            print('Package ID: ', first_route[number].id)
-            print('Delivery address: ', first_route[number].address)
-            print('Delivery deadline: ', first_route[number].deadline)
-            print('Delivery city: ', first_route[number].city)
-            print('Delivery zip code: ', first_route[number].zip)
-            print('Package weight: ', first_route[number].weight)
-            print('Delivered at: ', formatted_string)
-        elif current_time < delivery_time:
-          # print ('in route')
-           first_route[number].status = 'in route'
-          #print(first_route[number])
-           print('Package ID: ', first_route[number].id)
-           print('Delivery address: ', first_route[number].address)
-           print('Delivery deadline: ', first_route[number].deadline)
-           print('Delivery city: ', first_route[number].city)
-           print('Delivery zip code: ', first_route[number].zip)
-           print('Package weight: ', first_route[number].weight)
-           print('In route. To be delivered: ', formatted_string)
-
-       # print ('time is ', time)
-        #print ('number is', number)
-    elif packageID in second_index_list:
-            number = second_index_list.index(packageID)
-            distance = second_distance[number]
-            # for i in range(second_index_list.index(packageID)+1):
-            #     distance += second_distance[i]
-            time = distance / 18
-            start_time = 9.10
-            #delta = current_time + start_time
-            delivery_time = start_time + time
-            formatted_delivery_hours = int(delivery_time)
-            formatted_minutes = (time * 60) % 60
-            formatted_seconds = (time * 3600) % 60
-            formatted_string = "%d:%02d:%02d" % (formatted_delivery_hours, formatted_minutes, formatted_seconds)
-
-            if current_time == start_time or current_time < start_time:
-                #print('in the hub')
-                second_route[number].status = 'in the hub'
-               # print (second_route [number])
-                print('Package ID: ', second_route[number].id)
-                print('Delivery address: ', second_route[number].address)
-                print('Delivery deadline: ', second_route[number].deadline)
-                print('Delivery city: ', second_route[number].city)
-                print('Delivery zip code: ', second_route[number].zip)
-                print('Package weight: ', second_route[number].weight)
-                print('Delivery status: in the hub. To be delivered: ', formatted_string)
-            elif current_time > delivery_time:
-                # print('status delivered')
-                # second_route[number].status = 'delivered at ', formatted_string
-                # print(second_route[number])
-                print('Package ID: ', second_route[number].id)
-                print('Delivery address: ', second_route[number].address)
-                print('Delivery deadline: ', second_route[number].deadline)
-                print('Delivery city: ', second_route[number].city)
-                print('Delivery zip code: ', second_route[number].zip)
-                print('Package weight: ', second_route[number].weight)
-                print('Delivered at: ',  formatted_string)
-            elif current_time < delivery_time:
-                # print('in route')
-                # second_route[number].status = 'in route'
-                # print(second_route[number])
-                print('Package ID: ', first_route[number].id)
-                print('Delivery address: ', first_route[number].address)
-                print('Delivery deadline: ', first_route[number].deadline)
-                print('Delivery city: ', first_route[number].city)
-                print('Delivery zip code: ', first_route[number].zip)
-                print('Package weight: ', first_route[number].weight)
-                print('In route. To be delivered:  ', formatted_string)
-            number = second_index_list.index(packageID)
-            distance = second_distance [number]
-            # distance = 0
-            # for i in range(second_index_list.index(packageID)+1):
-            #     distance += second_distance[i]
-            time = distance / 18
-            start_time = 9.10
-            # delta = current_time + start_time
-            delivery_time = start_time + time
-
-            formatted_delivery_hours = int(delivery_time)
-            formatted_minutes = (time * 60) % 60
-            formatted_seconds = (time * 3600) % 60
-
-            formatted_string = "%d:%02d:%02d" % (formatted_delivery_hours, formatted_minutes, formatted_seconds)
-
-            if current_time == start_time or current_time < start_time:
-                print('in the hub')
-                second_route[number].status = 'in the hub'
-                print(second_route[number])
-            elif current_time > delivery_time:
-                print('status delivered')
-                second_route[number].status = 'delivered at ', formatted_string
-                print(second_route[number])
-                print('delivery time decimal')
-                print(delivery_time)
-            elif current_time < delivery_time:
-                print('in route')
-                second_route[number].status = 'in route'
-                print(second_route[number])
-    else:
-            number = third_index_list.index(packageID)
-            print ('number is ', number)
-            distance = third_distance [number]
-            # distance = 0
-            # for i in range(third_index_list.index(packageID)+1):
-            #         distance += third_distance[i]
-            #         print ('index', i)
-            time = distance / 18
-            print ('and distance', distance)
-            print ('calculated time', time)
-            start_time = 11.00
-            # delta = current_time + start_time
-            delivery_time = start_time + time
-            formatted_delivery_hours = int(delivery_time)
-            formatted_minutes = (time * 60) % 60
-            formatted_seconds = (time * 3600) % 60
-            formatted_string = "%d:%02d:%02d" % (formatted_delivery_hours, formatted_minutes, formatted_seconds)
-
-            if current_time == start_time or current_time < start_time:
-                 #   print('in the hub')
-                    print ('Package ID: ', third_route[number].id)
-                    print ('Delivery address: ', third_route[number].address)
-                    print ('Delivery deadline: ', third_route[number].deadline)
-                    print ('Delivery city: ', third_route[number].city)
-                    print ('Delivery zip code: ', third_route[number].zip)
-                    print ('Package weight: ', third_route[number].weight)
-                    print ('Delivery status: in the hub. To be delivered: ', formatted_string)
-                   # third_route[number].status = 'in the hub'
-                    #print(third_route[number])
-            elif current_time > delivery_time:
-                   # print('status delivered')
-                    third_route[number].status = 'delivered at ', formatted_string
-                    #print ('delivery time, decimal ', delivery_time)
-                    print('Package ID: ', third_route[number].id)
-                    print('Delivery address: ', third_route[number].address)
-                    print('Delivery deadline: ', third_route[number].deadline)
-                    print('Delivery city: ', third_route[number].city)
-                    print('Delivery zip code: ', third_route[number].zip)
-                    print('Package weight: ', third_route[number].weight)
-                    print('Delivered at: ', formatted_string)
-
-                    #print(third_route[number])
-            elif current_time < delivery_time:
-                    #print('in route')
-                    third_route[number].status = 'in route'
-                    #print (third_route[number])
-                    print('Package ID: ', third_route[number].id)
-                    print('Delivery address: ', third_route[number].address)
-                    print('Delivery deadline: ', third_route[number].deadline)
-                    print('Delivery city: ', third_route[number].city)
-                    print('Delivery zip code: ', third_route[number].zip)
-                    print('Package weight: ', third_route[number].weight)
-                    print('In route. To be delivered at : ', formatted_string)
 
           #  print('time is ', time)
             # print ('number is', number)
@@ -461,16 +243,29 @@ def lookupPackage (packageID, current_time):
 def getById(packageID, current_time):
     myPackage = Package.myHash.get_item(packageID)
     start = myPackage.start_time
+    delivery = myPackage.delivery
+   #delivery_time = start_time + time
+    formatted_delivery_hours = int(delivery)
+    formatted_minutes = (delivery* 60) % 60
+    formatted_seconds = (delivery * 3600) % 60
+    formatted_string = "%d:%02d:%02d" % (formatted_delivery_hours, formatted_minutes, formatted_seconds)
+    print('Package ID: ', myPackage.id)
+    print('Delivery address: ', myPackage.address)
+    print('Delivery deadline: ', myPackage.deadline)
+    print('Delivery city: ', myPackage.city)
+    print('Delivery zip code: ', myPackage.zip)
+    print('Package weight: ', myPackage.weight)
     if start >=  current_time:
-        print ('in the hub')
-        print ('Package ID: ', myPackage.id)
-        print ('Delivery address: ', myPackage.address)
-        # print ('Delivery deadline: ', third_route[number].deadline)
-        # print ('Delivery city: ', third_route[number].city)
-        # print ('Delivery zip code: ', third_route[number].zip)
-        # print ('Package weight: ', third_route[number].weight)
-        # print ('Delivery status: in the hub. To be delivered: ',  )
+
+        print ('Delivery status: in the hub. To be delivered: ', formatted_string )
         #            # third_route[number].status = 'in the hub'
+    elif current_time > delivery:
+
+        print('Delivered at: ', formatted_string)
+        # print('status delivered')
+
+    elif current_time < delivery:
+        print('In route. To be delivered at : ', formatted_string)
 
 
 def getAll (current_time):
