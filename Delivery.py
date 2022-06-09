@@ -83,11 +83,11 @@ for package in second_truck:
 
 #Create and populate list with addresses of second truck
 second_truck_addresses = []
-for i  in range (len(second_truck)):
+for i  in range(len(second_truck)):
     second_truck_addresses.append(getattr(second_truck[i], 'address'))
 
 
- #Create list with addresses of the second truck without any duplicates
+#Create list with addresses of the second truck without any duplicates
 second_addresses_noduplicates = list (set(second_truck_addresses))
 second_addresses_noduplicates.insert (0, 'HUB')
 
@@ -141,8 +141,10 @@ for i in range (len(first_index_list)):
 #Sequence of addresses for the second truck
 second_addresses_sequence = Distances.minDistanceFrom(second_addresses_noduplicates[0], second_addresses_noduplicates)
 
-#Second truck route
+#Second truck route. Second sequnce includes the first truck addresses
 second_sequence = Distances.minDistanceFrom(second_addresses_sequence[0], second_addresses_noduplicates)
+
+#List of addresses route for second truck
 second_route = Distances.routeTruck(second_sequence, second_truck)
 
 #List of indices for second truck
@@ -163,42 +165,32 @@ for i in range (len(second_route)-1):
 second_distance.insert(0, Distances.distanceBetween ('HUB', (getattr(second_route[0], 'address'))))
 second_distance.append(Distances.distanceBetween(getattr(second_route[-1], 'address'), 'HUB'))
 second_time.append (second_start + (Distances.distanceBetween(getattr(second_route[-1], 'address'), 'HUB')/18))
-#second distance
-
 
 for i in range (len(second_index_list)):
     index = second_index_list[i]
     Package.myHash.search(index).delivery = second_time[i]
 
 
-
+# Get distance for a sequence of addresses
 def getDistance(address_sequence):
     distance = 0.0
     for i in range (len(address_sequence)-1):
         if i == (len(address_sequence))-1:
             break
         value = address_sequence[i][2]
-       # print ('value is')
-        #print (value)
-        #value_float = float (value)
         distance = distance + value
 
     return distance
 
 
 
-# third truck route
-# print ('third sequence')
-# print (Distances.minDistanceFrom(third_addresses_noduplicates[0], third_addresses_noduplicates))
+# Sequence of third truck addresses that appends to first and second sequence. and route for third truckto
 third_addresses_sequence = Distances.minDistanceFrom(third_addresses_noduplicates[0], third_addresses_noduplicates)
-#third_addresses_sequence.append('HUB')
-
-
-#print ('third truck route')
 third_sequence = Distances.minDistanceFrom(third_addresses_sequence[0], third_addresses_noduplicates)
 third_route = Distances.routeTruck(third_sequence, third_truck)
 
 
+#get total distance for all stops visited
 def total_distance ():
     last_one = Distances.distanceBetween(getattr(first_route[-1], 'address'), 'HUB') + Distances.distanceBetween(
         getattr(second_route[-1], 'address'), 'HUB') + Distances.distanceBetween(getattr(third_route[-1], 'address'),
@@ -206,13 +198,16 @@ def total_distance ():
     distance = getDistance(third_addresses_sequence) + last_one
 
     print ('Total distance is: :', round (distance, 2))
+
+
+#List of third truck package ids
 third_index_list = []
 for i in range (len(third_route)):
     third_index_list.append(third_route [i].id)
 
 third_time = []
 third_distance = []
-#print ('third distances', third_distance)
+
 j = 0
 counter = Distances.distanceBetween ('HUB', (getattr(third_route[0], 'address')))
 for i in range (len(third_route)-1):
@@ -237,14 +232,12 @@ for i in range (len(third_index_list)):
           #  print('time is ', time)
             # print ('number is', number)
 
-# print ('third distances')
-# print (third_distance)
-#lookupPackage(27, 12.03)
-def getById(packageID, current_time):
+#Look up delivery status by packageID and user entered time. Time complexity O(1)
+def lookUpFunction(packageID, current_time):
     myPackage = Package.myHash.get_item(packageID)
     start = myPackage.start_time
     delivery = myPackage.delivery
-   #delivery_time = start_time + time
+
     formatted_delivery_hours = int(delivery)
     formatted_minutes = (delivery* 60) % 60
     formatted_seconds = (delivery * 3600) % 60
@@ -267,7 +260,7 @@ def getById(packageID, current_time):
     elif current_time < delivery:
         print('In route. To be delivered at : ', formatted_string)
 
-
+#Gets status of all packages at given time, O(n)
 def getAll (current_time):
    #for package in Package.get_myHash():
        for i in range(1, 41):

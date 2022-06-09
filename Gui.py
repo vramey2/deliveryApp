@@ -17,7 +17,7 @@ def userGui():
             #current_decimal_time = int(hour) * 3600 + int(minute) * 60 + int(second)
             decimal_time = int(hour) + int(minute) / 60 + int(second) / 3600
             input_package = int(input("Enter package ID: "))
-            Delivery.getById(input_package, decimal_time)
+            Delivery.lookUpFunction(input_package, decimal_time)
         except:
             print ('Please enter correct format for time and valid package number')
 

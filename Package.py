@@ -1,10 +1,12 @@
 import csv
 import HashTable
 
+#Create lists for each of three trucks
 first_truck = []
 second_truck = []
 third_truck = []
 
+#Class for packages with parameters defining each package
 class Package:
     def __init__(self, id, address, deadline, city, state, zip, weight,  note, status, delivery, start_time):
         self.id = id
@@ -18,10 +20,11 @@ class Package:
         self.status = status
         self.delivery = delivery
         self.start_time = start_time
+    #
+    # def __str__(self):  # overwite print(Movie) otherwise it will print object reference
+    #     return "%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s" % (self.id, self.deadline, self.address, self.city, self.state, self.zip, self.weight, self.note, self.status, self.delivery, self.start_time)
 
-    def __str__(self):  # overwite print(Movie) otherwise it will print object reference
-        return "%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s" % (self.id, self.deadline, self.address, self.city, self.state, self.zip, self.weight, self.note, self.status, self.delivery, self.start_time)
-
+#Loads package data from csv file
 def loadPackageData (filename, myHashTable):
 
     with open(filename) as packagedata:
@@ -41,19 +44,17 @@ def loadPackageData (filename, myHashTable):
             delivery = " "
             start_time = " "
 
-         #   print ("inside for")
 
             if id == 9:
                 address = '410 S State St'
 
-                # package object
+            #Create new package object
             newPackage = Package (id, address, deadline, city, state, zip, weight, note, status, delivery, start_time)
-            #print ("New package" , newPackage)
-            #insert into hash
 
-
+            #Inserts packages in the hash table
             myHash.insert(id, newPackage)
 
+#Returns hash table
 def get_myHash():
     return myHash
 
@@ -64,9 +65,3 @@ def get_myHash():
 myHash = HashTable.MyHashTable()
 loadPackageData('packagedata.csv', myHash)
 
-# #myHash.print()
-# def getPackageData():
-#      for i in range (len(myHash.table)+1):
-#          print ("Package: {}".format(myHash.search(i+1)))
-#
-# getPackageData()
