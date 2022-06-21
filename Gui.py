@@ -1,6 +1,6 @@
 import Delivery
 
-
+#Inteface for the uesr. Displays message and lets user make a selection.
 def userGui():
     user_selection = input("""Please chose the following options:  1 to look up package by ID and time,
                                  2 to look up all packages at certain time,
@@ -8,7 +8,7 @@ def userGui():
                                  4 to exit\n""")
     if user_selection == '4':
         exit()
-    # while user_selection != '3':
+
     elif user_selection == '1':
         try:
             print("Enter time in HH:MM:SS format: ")
@@ -36,5 +36,5 @@ def userGui():
         Delivery.total_distance()
 
 
-   #user_selection = input
+
     userGui()

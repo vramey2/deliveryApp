@@ -129,14 +129,13 @@ for i in range (len(first_route)-1):
 first_distance.insert(0, Distances.distanceBetween ('HUB', (getattr(first_route[0], 'address'))))
 first_distance.append(Distances.distanceBetween(getattr(first_route[-1], 'address'), 'HUB'))
 first_time.append (first_start + (Distances.distanceBetween(getattr(first_route[-1], 'address'), 'HUB')/18))
+
 #insert delivery times to hash table for first truck
 for i in range (len(first_index_list)):
     index = first_index_list[i]
     Package.myHash.search(index).delivery = first_time[i]
 
-# Returns distance of the first truck
-# def getfirst_distance():
-#     return first_distance
+
 
 #Sequence of addresses for the second truck
 second_addresses_sequence = Distances.minDistanceFrom(second_addresses_noduplicates[0], second_addresses_noduplicates)
@@ -229,8 +228,6 @@ for i in range (len(third_index_list)):
     Package.myHash.search(index).delivery = third_time[i]
 
 
-          #  print('time is ', time)
-            # print ('number is', number)
 
 #Look up delivery status by packageID and user entered time. Time complexity O(1)
 def lookUpFunction(packageID, current_time):
@@ -251,7 +248,7 @@ def lookUpFunction(packageID, current_time):
     if start >=  current_time:
 
         print ('Delivery status: in the hub. To be delivered: ', formatted_string )
-        #            # third_route[number].status = 'in the hub'
+
     elif current_time > delivery:
 
         print('Delivered at: ', formatted_string)
@@ -274,8 +271,7 @@ def getAll (current_time):
              formatted_seconds = (delivery * 3600) % 60
              formatted_string = "%d:%02d:%02d" % (formatted_delivery_hours, formatted_minutes, formatted_seconds)
 
-             # if i == 6 && current_time < int (9:05:00):
-             #    print ('Package ID: ', i, 'delayed until 9:05')
+
              if start >= current_time:
                  print ('Package ID: ', i, ' in the hub')
 

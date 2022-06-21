@@ -20,10 +20,7 @@ class Package:
         self.status = status
         self.delivery = delivery
         self.start_time = start_time
-    #
-    # def __str__(self):  # overwite print(Movie) otherwise it will print object reference
-    #     return "%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s" % (self.id, self.deadline, self.address, self.city, self.state, self.zip, self.weight, self.note, self.status, self.delivery, self.start_time)
-
+    2
 #Loads package data from csv file
 def loadPackageData (filename, myHashTable):
 
