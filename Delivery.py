@@ -59,13 +59,23 @@ third_truck.append(Package.myHash.search(33))
 third_truck.append(Package.myHash.search(35))
 third_truck.append(Package.myHash.search(28))
 
-#Set statis pf 1st tricl [aclages as on truck 1
+# #Set status of the packages on the first truck.
 for package in first_truck:
     package.status = 'on truck 1'
     package.start_time = first_start
 
+# Set status of 2nd truck packages as on truck 2
+for package in second_truck:
+    package.status = 'on truck 2'
+    package.start_time = second_start
 
-#Create and populate list with addresses of the first truck
+
+#Set status of 3rd truck packages as on truck 3
+for package in third_truck:
+    package.status = 'on truck 3'
+    package.start_time = third_start
+
+#Create and populate list with addresses of the first truck. Complexity O(n)
 first_truck_addresses = []
 for i  in range (len(first_truck)):
    first_truck_addresses.append(getattr(first_truck[i], 'address'))
@@ -75,10 +85,6 @@ for i  in range (len(first_truck)):
 first_addresses_noduplicates = list (set(first_truck_addresses))
 first_addresses_noduplicates.insert(0, 'HUB')
 
-# Set status of 2nd truck packages as on truck 2
-for package in second_truck:
-    package.status = 'on truck 2'
-    package.start_time = second_start
 
 
 #Create and populate list with addresses of second truck
@@ -91,10 +97,6 @@ for i  in range(len(second_truck)):
 second_addresses_noduplicates = list (set(second_truck_addresses))
 second_addresses_noduplicates.insert (0, 'HUB')
 
-#Set status of 3rd truck packages as on truck 3
-for package in third_truck:
-    package.status = 'on truck 3'
-    package.start_time = third_start
 
 #Create and populate list with addresses of third truck
 third_truck_addresses = []
@@ -165,13 +167,15 @@ second_distance.insert(0, Distances.distanceBetween ('HUB', (getattr(second_rout
 second_distance.append(Distances.distanceBetween(getattr(second_route[-1], 'address'), 'HUB'))
 second_time.append (second_start + (Distances.distanceBetween(getattr(second_route[-1], 'address'), 'HUB')/18))
 
+#Add delivery time for second truck to the hash table
 for i in range (len(second_index_list)):
     index = second_index_list[i]
     Package.myHash.search(index).delivery = second_time[i]
 
 
-# Get distance for a sequence of addresses
+# Get distance for a sequence of addresses - > O(n)
 def getDistance(address_sequence):
+
     distance = 0.0
     for i in range (len(address_sequence)-1):
         if i == (len(address_sequence))-1:
@@ -189,7 +193,7 @@ third_sequence = Distances.minDistanceFrom(third_addresses_sequence[0], third_ad
 third_route = Distances.routeTruck(third_sequence, third_truck)
 
 
-#get total distance for all stops visited
+#get total distance for all stops visited. O(1)
 def total_distance ():
     last_one = Distances.distanceBetween(getattr(first_route[-1], 'address'), 'HUB') + Distances.distanceBetween(
         getattr(second_route[-1], 'address'), 'HUB') + Distances.distanceBetween(getattr(third_route[-1], 'address'),
@@ -204,6 +208,7 @@ third_index_list = []
 for i in range (len(third_route)):
     third_index_list.append(third_route [i].id)
 
+#List of third truck delivery time and distances
 third_time = []
 third_distance = []
 
@@ -218,68 +223,13 @@ for i in range (len(third_route)-1):
 third_distance.insert(0, Distances.distanceBetween ('HUB', (getattr(third_route[0], 'address'))))
 third_distance.append(Distances.distanceBetween(getattr(third_route[-1], 'address'), 'HUB'))
 third_time.append (third_start + (Distances.distanceBetween(getattr(third_route[-1], 'address'), 'HUB')/18))
-# print ('third distance times', third_time)
-# print ('first package indexes', first_index_list)
 
-# print ('first distances list', first_distance)
-#def lookupAll (current_time):
+
+# Add delivery times for third truck to the hash table
 for i in range (len(third_index_list)):
     index = third_index_list[i]
     Package.myHash.search(index).delivery = third_time[i]
 
-
-
-#Look up delivery status by packageID and user entered time. Time complexity O(1)
-def lookUpFunction(packageID, current_time):
-    myPackage = Package.myHash.get_item(packageID)
-    start = myPackage.start_time
-    delivery = myPackage.delivery
-
-    formatted_delivery_hours = int(delivery)
-    formatted_minutes = (delivery* 60) % 60
-    formatted_seconds = (delivery * 3600) % 60
-    formatted_string = "%d:%02d:%02d" % (formatted_delivery_hours, formatted_minutes, formatted_seconds)
-    print('Package ID: ', myPackage.id)
-    print('Delivery address: ', myPackage.address)
-    print('Delivery deadline: ', myPackage.deadline)
-    print('Delivery city: ', myPackage.city)
-    print('Delivery zip code: ', myPackage.zip)
-    print('Package weight: ', myPackage.weight)
-    if start >=  current_time:
-
-        print ('Delivery status: in the hub. To be delivered: ', formatted_string )
-
-    elif current_time > delivery:
-
-        print('Delivered at: ', formatted_string)
-        # print('status delivered')
-
-    elif current_time < delivery:
-        print('In route. To be delivered at : ', formatted_string)
-
-#Gets status of all packages at given time, O(n)
-def getAll (current_time):
-   #for package in Package.get_myHash():
-       for i in range(1, 41):
-             start = Package.myHash.search(i).start_time
-             delivery = Package.myHash.search(i).delivery
-            # start = Package.get_myHash().get_item(str(i))[2]
-             #print (start)
-             #print (type(start))
-             formatted_delivery_hours = int(delivery)
-             formatted_minutes = (delivery* 60) % 60
-             formatted_seconds = (delivery * 3600) % 60
-             formatted_string = "%d:%02d:%02d" % (formatted_delivery_hours, formatted_minutes, formatted_seconds)
-
-
-             if start >= current_time:
-                 print ('Package ID: ', i, ' in the hub')
-
-             elif current_time >= delivery:
-                 print ('Package ID: ', i, ' delivered at ', formatted_string)
-
-             else:
-                 print ('Package ID: ', i, ' in route, scheduled for delivery at ', formatted_string )
 
 
 

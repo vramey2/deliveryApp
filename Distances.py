@@ -22,13 +22,13 @@ def distanceBetween (address_one, address_two):
 address_sequence = []
 
 # Algorithm uses nearest neighbour approach, it continues looking for the smallest distance to a given point
-# Algorithm takes two paramenters: starting point and a list of all addresses
+# Algorithm takes two parameters: starting point and a list of all addresses
 # Minimum distance is set at a high number
 # The for loop compares distance between the starting address and the next address in the list, if minimum distance is
-#Higher than the distance between to points, the miimum distance is assigned the value of that  poit and next address is appended to the
-# sequence of the addresses in a route, appended address is removed from the list of all addresses.
+# greater than the distance between two points, the minimum distance is assigned the value of that point and next address is appended to the
+# sequence of the addresses in a route, appended address is removed from the list of all addresses on the truck.
 # The function is recursive with a base case of the length of the list of addresses higher than 1. Returns sequence of addresses
-# Complexity is O(n)
+# Complexity is O(n2) due to for loop and recursion
 def minDistanceFrom (fromAddress, truck_addresses):
 
   distance = 0

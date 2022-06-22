@@ -20,7 +20,7 @@ class Package:
         self.status = status
         self.delivery = delivery
         self.start_time = start_time
-    2
+
 #Loads package data from csv file
 def loadPackageData (filename, myHashTable):
 
