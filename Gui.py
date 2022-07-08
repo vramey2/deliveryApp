@@ -82,14 +82,15 @@ def getAll (current_time):
              formatted_minutes = (delivery* 60) % 60
              formatted_seconds = (delivery * 3600) % 60
              formatted_string = "%d:%02d:%02d" % (formatted_delivery_hours, formatted_minutes, formatted_seconds)
-
+             deadline = Package.myHash.search(i).deadline
 
              if start >= current_time:
-                 print ('Package ID: ', i, ' in the hub')
+                 print ('Package ID: ', i, ' in the hub',  'Delivery deadline: ', deadline, 'Scheduled delivery: ',
+                        formatted_string)
 
              elif current_time >= delivery:
-                 print ('Package ID: ', i, ' delivered at ', formatted_string)
+                 print ('Package ID: ', i, 'Delivery deadline: ', deadline, 'Delivered at ', formatted_string)
 
              else:
-                 print ('Package ID: ', i, ' in route, scheduled for delivery at ', formatted_string )
+                 print ('Package ID: ', i, 'Delivery deadline: ', deadline, ' in route, scheduled for delivery at ', formatted_string )
 
